@@ -1,11 +1,13 @@
 package edu.temple.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -26,7 +28,9 @@ class MainActivity : AppCompatActivity() {
             // TODO Step 2: Implement lambda body to launch new activity and pass value
 
             adapter = TextSizeAdapter(textSizes){
-
+                val launchIntent = Intent(this@MainActivity,DisplayActivity::class.java)
+                launchIntent.putExtra("edu.temple.activities.textSizes", textSizes)
+                startActivity(launchIntent)
             }
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
@@ -43,9 +47,7 @@ class TextSizeAdapter (private val textSizes: Array<Int>, private val callback: 
     // TODO Step 1: Complete onClickListener to return selected number
     inner class TextSizeViewHolder(val textView: TextView) : RecyclerView.ViewHolder (textView) {
         init {
-            textView.setOnClickListener { v: View ->
-                this@TextSizeAdapter.callback((v as TextView).toString().toInt())
-            }
+            textView.setOnClickListener {callback(textSizes[adapterPosition])}
         }
 
     }
