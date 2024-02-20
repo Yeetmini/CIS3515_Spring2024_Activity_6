@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings.TextSize
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,9 +28,9 @@ class MainActivity : AppCompatActivity() {
 
             // TODO Step 2: Implement lambda body to launch new activity and pass value
 
-            adapter = TextSizeAdapter(textSizes){
+            adapter = TextSizeAdapter(textSizes){textSize: Int->
                 val launchIntent = Intent(this@MainActivity,DisplayActivity::class.java)
-                launchIntent.putExtra("edu.temple.activities.textSizes", textSizes)
+                launchIntent.putExtra("edu.temple.activities.TextSize", textSize)
                 startActivity(launchIntent)
             }
             layoutManager = LinearLayoutManager(this@MainActivity)
